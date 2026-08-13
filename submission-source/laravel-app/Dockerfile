@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -27,12 +27,12 @@ WORKDIR /var/www
 # Copy application files
 COPY . /var/www
 
-# Set unlimited memory and run composer without scripts/dev dependencies
+# Run composer install
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
 # Expose port 8080
 EXPOSE 8080
 
-# Run Laravel on Render's dynamic port variable
+# Run Laravel on Render's dynamic port
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
