@@ -1,0 +1,7 @@
+/vendor
+/.idea
+/.vscode
+.env
+.env.backup
+.env.production
+Composer.lock
