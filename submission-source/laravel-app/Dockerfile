@@ -27,11 +27,12 @@ WORKDIR /var/www
 # Copy application files
 COPY . /var/www
 
-# Set unlimited memory and run composer install safely
+# Set unlimited memory and run composer without scripts/dev dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --optimize-autoloader --no-dev --ignore-platform-reqs
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
 
 # Expose port 8080
 EXPOSE 8080
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+# Run Laravel on Render's dynamic port variable
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
