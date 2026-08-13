@@ -35,4 +35,5 @@ RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --optimize-autolo
 EXPOSE 8080
 
 # Run Laravel on Render's dynamic port
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+# Replace the existing CMD line at the bottom with this:
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
