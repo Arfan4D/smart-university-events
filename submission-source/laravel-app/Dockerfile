@@ -27,7 +27,7 @@ WORKDIR /var/www
 # Copy application files
 COPY . /var/www
 
-# Set unlimited memory for Composer and install dependencies
+# Set unlimited memory and run composer install safely
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --optimize-autoloader --no-dev --ignore-platform-reqs
 
